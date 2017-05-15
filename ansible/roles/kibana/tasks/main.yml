@@ -1,0 +1,20 @@
+---
+- name: Add Kibana repository.
+  apt_repository:
+    repo: 'deb http://packages.elastic.co/kibana/4.5/debian stable main'
+    state: present
+    
+- name: Install Kibana
+  sudo: yes
+  apt: pkg=kibana state=present 
+   
+#- name: ensure server.host is set in cli kibana.yml 
+#  lineinfile: dest=/opt/kibana/config/kibana.yml
+#              regexp='server.host'
+#              line='server.host\: localhost'
+              
+- name: Restart Daemon
+  shell: sudo systemctl daemon-reload
+  
+- name: Enable Kibana
+  shell: sudo systemctl enable kibana

@@ -1,0 +1,13 @@
+---
+- name: Install Nginx
+  sudo: yes
+  apt: pkg=nginx state=latest
+
+- name: set nginx default site
+  sudo: yes
+  template: src=sites-available-default.tpl dest=/etc/nginx/sites-available/default
+  notify: restart nginx
+  
+- name: Open firewall for Nginx
+  shell: sudo ufw allow 'Nginx Full'
+   
